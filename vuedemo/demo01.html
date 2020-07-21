@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试项目</title>
+</head>
+<body>
+    <div id="app">
+        名字:{{name}} 个数:{{num}}
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            name:"张三",
+            num:10
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>双向绑定</title>
+</head>
+<script src="vue.js"></script>
+<body>
+    <div id="app">
+        <input value="小实训" v-model="text" type="checkbox">小实训<br>
+        <input value="实训" v-model="text" type="checkbox">实训<br>
+        <input value="EE下" v-model="text" type="checkbox">EE下<br>
+        你选择的是:{{text}}
+    </div>
+</body>
+<script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                text:[]
+            }
+        })
+
+</script>
+</html>

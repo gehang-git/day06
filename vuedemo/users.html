@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="vue.js"></script>
+<body>
+<center>
+    <div id="app">
+        <h1>用户管理</h1>
+        <table border="1" cellspacing="0" width="300px">
+            <tr align="center">
+                <td>姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>操作</td>
+            </tr>
+            <tr align="center" v-for="(user,index) in page.list" v-bind:key="index">
+                <td>{{user.name}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.age}}</td>
+                <td>
+                    <a @click="toEdit(user)">修改</a>
+                    <a @click="del(index)">删除</a>
+                </td>
+            </tr>
+        </table>
+        <button v-on:click="page.pageNum=1">首页</button>
+        <button @click="page.pageNum>1?page.pageNum=page.pageNum-1:page.pageNum=1">上一页</button>
+        <button @click="page.pageNum>=page.totalPage?page.pageNum=page.totalPage:page.pageNum=page.pageNum+1">下一页</button>
+        <button @click="page.pageNum=page.totalPage">尾页</button>
+    </div>
+</center>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            //分页
+            page:{
+              pageNum:1,
+              pageSize:2,
+              totalPage:0,
+              list:[] //页面展示的数据
+            },
+            users:[{name:'张三',gender:'女',age:20},
+                {name:'李四',gender:'女',age:20},
+                {name:'a柳岩', gender:'女', age: 21},
+                {name:'峰a哥', gender:'男', age: 18},
+                {name:'范冰冰a', gender:'女', age: 24},
+                {name:'刘亦菲', gender:'女', age: 18},
+                {name:'古力娜扎', gender:'女', age: 25}
+            ]
+        },
+        created(){
+            this.page.totalPage = Math.ceil(this.users.length/this.page.pageSize);
+            var startIndex = (this.page.pageNum-1)*this.page.pageSize;
+            var endIndex = this.page.pageNum*this.page.pageSize;
+            this.page.list = this.users.slice(startIndex,endIndex);
+        },
+        watch:{
+            "page.pageNum"(){
+                //重新获取分页数据
+                var startIndex = (this.page.pageNum-1)*this.page.pageSize;
+                var endIndex = this.page.pageNum*this.page.pageSize;
+                var tempList = [];
+                this.users.forEach(function(u){
+                    tempList.push(u);
+                });
+                this.page.list = tempList.slice(startIndex,endIndex);
+            }
+        }
+    })
+</script>
+</html>
